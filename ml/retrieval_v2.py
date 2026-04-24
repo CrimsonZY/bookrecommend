@@ -64,15 +64,15 @@ def _l2_normalize(x: np.ndarray) -> np.ndarray:
 
 class QueryEmbedder:
     def __init__(self, model_name: str = MODEL_NAME):
-        self.model_name = str(model_name or MODEL_NAME)
+        # NOTE: model_name is intentionally ignored to enforce global singleton loader.
         self.model = None
 
     def _ensure_model(self) -> None:
         if self.model is not None:
             return
-        from sentence_transformers import SentenceTransformer
+        from ml.model_loader import get_model
 
-        self.model = SentenceTransformer(self.model_name)
+        self.model = get_model()
 
     def embed_texts(self, texts: List[str]) -> np.ndarray:
         self._ensure_model()

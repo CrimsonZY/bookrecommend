@@ -9,7 +9,6 @@ from typing import Any, Dict, List, Optional
 from ml.model_loader import get_model
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
 
 
 MODEL_NAME = "BAAI/bge-small-zh-v1.5"

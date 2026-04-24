@@ -7,7 +7,6 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Protocol, Sequence, Tuple
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
 
 
 MODEL_NAME = "BAAI/bge-small-zh-v1.5"
@@ -47,8 +46,10 @@ class Embedder(Protocol):
 
 class SentenceTransformerEmbedder:
     def __init__(self, model_name: str = MODEL_NAME):
-        # SentenceTransformer will reuse HF cache if already downloaded.
-        self.model = SentenceTransformer(model_name)
+        # Enforce singleton loader (avoid duplicate model instances in-process).
+        from ml.model_loader import get_model
+
+        self.model = get_model()
 
     def encode(self, texts: Sequence[str]) -> np.ndarray:
         emb = self.model.encode(list(texts), convert_to_numpy=True, show_progress_bar=False)

@@ -6,9 +6,9 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 import numpy as np
-from sentence_transformers import SentenceTransformer
 from sklearn.preprocessing import normalize
 
+from ml.model_loader import get_model
 
 MODEL_NAME = "BAAI/bge-small-zh-v1.5"
 INPUT_JSON = Path("data/douban_top100_clean_refilled.json")
@@ -114,8 +114,8 @@ def main() -> int:
     print(f"[embedding] input_books = {len(books)}")
     print(f"[embedding] output = {OUT_EMB} , {OUT_INDEX}")
 
-    # SentenceTransformer will show a progress bar when show_progress_bar=True
-    model = SentenceTransformer(MODEL_NAME)
+    # Enforce singleton loader to avoid accidental duplicate instances.
+    model = get_model()
     emb = model.encode(
         texts,
         batch_size=32,
