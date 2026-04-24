@@ -6,6 +6,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+from ml.model_loader import get_model
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -36,7 +37,7 @@ def _get_model() -> SentenceTransformer:
     global _MODEL
     if _MODEL is None:
         # sentence-transformers uses HF cache; if already cached, it won't re-download.
-        _MODEL = SentenceTransformer(MODEL_NAME)
+        _MODEL = get_model()
     return _MODEL
 
 

@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 from typing import Any, Dict, List
+from ml.model_loader import get_model
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -83,7 +84,7 @@ def main() -> int:
     print(f"[emb_v2] input_books = {len(books)}")
     print(f"[emb_v2] output = {OUT_EMB} , {OUT_INDEX}")
 
-    model = SentenceTransformer(MODEL_NAME)
+    model = get_model()
     emb = model.encode(
         texts,
         batch_size=32,

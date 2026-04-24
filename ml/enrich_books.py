@@ -11,6 +11,7 @@ import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+from ml.model_loader import get_model
 
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -475,7 +476,7 @@ def main() -> int:
 
     model: Optional[SentenceTransformer] = None
     if fallback_embedding:
-        model = SentenceTransformer(MODEL_NAME)
+        model = get_model()
 
     stats = {
         "llm_used": 0,
