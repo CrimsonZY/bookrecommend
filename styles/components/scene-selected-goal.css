@@ -1,0 +1,55 @@
+/* Scene 页：已选目标卡片居中展示（无占位空白） */
+
+.selected-goal-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.selected-goal-wrap .ui-goal-button {
+  width: min(520px, 100%);
+}
+
+.selected-goal-wrap.fade-enter {
+  opacity: 0;
+  transform: translateY(6px) scale(0.99);
+}
+
+.selected-goal-wrap.fade-enter.fade-enter--active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1), transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.selected-goal-wrap--transitioning .ui-goal-button {
+  opacity: 0;
+  transform: translateY(6px) scale(0.985);
+  filter: saturate(0.95);
+  transition:
+    opacity 260ms ease,
+    transform 320ms ease,
+    filter 260ms ease,
+    background 320ms ease,
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+}
+
+.selected-goal-wrap--transitioning .ui-goal-button:hover {
+  transform: translateY(6px) scale(0.985);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selected-goal-wrap.fade-enter,
+  .selected-goal-wrap.fade-enter.fade-enter--active {
+    transform: none;
+    transition: none !important;
+  }
+
+  .selected-goal-wrap--transitioning .ui-goal-button {
+    transition: none !important;
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+}
+

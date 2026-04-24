@@ -1,0 +1,265 @@
+/* Recommend 页：结果列表、加载与错误状态 */
+
+/* 减少分割线（header 底部边线）到内容的顶部留白，仅影响 recommend */
+.flow-step--recommend .prompt-preview {
+  margin-top: clamp(0.45rem, 1.2vw, 0.75rem);
+}
+
+.recommend-status {
+  margin-top: 0.9rem;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+}
+
+.recommend-status__text {
+  margin: 0;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.recommend-progress {
+  --h: 8px;
+  margin-top: 0.65rem;
+  height: var(--h);
+  border-radius: 999px;
+  overflow: hidden;
+  border: none;
+  background: color-mix(in srgb, CanvasText 10%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, CanvasText 10%, transparent);
+}
+
+.recommend-progress::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 42%;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, #4aa3ff 55%, Canvas 45%),
+    transparent
+  );
+  animation: recommend-progress-indeterminate 900ms ease-in-out infinite;
+}
+
+@keyframes recommend-progress-indeterminate {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(260%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recommend-progress::before {
+    animation: none;
+    width: 100%;
+    background: color-mix(in srgb, #4aa3ff 22%, Canvas 78%);
+  }
+}
+
+.recommend-status--loading {
+  border-style: none;
+}
+
+.recommend-status--error {
+  border-color: color-mix(in srgb, #ff6b6b 40%, CanvasText 10%);
+  background: transparent;
+}
+
+.recommend-status__retry {
+  margin-top: 0.75rem;
+  display: block;
+  margin-inline: auto;
+}
+
+.recommend-results {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1rem);
+}
+
+.flow-step--recommend .flow-refresh {
+  display: block;
+  margin: 0.85rem auto 0.25rem auto;
+}
+
+@media (max-width: 860px) {
+  .recommend-results {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recommend-book {
+  appearance: none;
+  text-align: left;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  color: inherit;
+  border-radius: 16px;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  background: color-mix(in srgb, Canvas 96%, CanvasText 4%);
+  box-shadow: 0 10px 24px color-mix(in srgb, CanvasText 8%, transparent);
+  transition: transform 140ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  cursor: pointer;
+}
+
+.recommend-book:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, CanvasText 18%, transparent);
+  box-shadow:
+    0 14px 30px color-mix(in srgb, CanvasText 10%, transparent),
+    0 4px 10px color-mix(in srgb, CanvasText 8%, transparent);
+}
+
+.recommend-book__body {
+  min-width: 0;
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+}
+
+.recommend-book__title {
+  font-weight: 780;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  font-size: 1.05rem;
+}
+
+.recommend-book__author {
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+.recommend-book__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.recommend-book__tags--modal {
+  margin-top: 0.35rem;
+}
+
+.recommend-tag {
+  font-size: 0.85rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, CanvasText 10%, transparent);
+  background: color-mix(in srgb, CanvasText 6%, Canvas 94%);
+  opacity: 0.9;
+}
+
+/* Book details modal */
+.ui-modal--book {
+  width: min(820px, 94vw);
+  max-height: min(86vh, 980px);
+  overflow: hidden;
+  padding-top: 1.25rem;
+}
+
+.ui-modal--book .ui-modal__title {
+  text-align: left;
+  font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+}
+
+.ui-modal--book .recommend-modal__author,
+.ui-modal--book .recommend-modal__meta,
+.ui-modal--book .recommend-modal__section-title,
+.ui-modal--book .recommend-modal__intro-text,
+.ui-modal--book .recommend-modal__disclaimer {
+  font-size: 0.85rem;
+}
+
+.ui-modal--book .recommend-modal__author {
+  font-size: 1rem;
+}
+
+.recommend-modal__content {
+  margin-top: 0.65rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 560px) {
+  .recommend-modal__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recommend-modal__right {
+  min-width: 0;
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.recommend-modal__author {
+  font-weight: 720;
+  letter-spacing: 0.2px;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.recommend-modal__meta {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.recommend-modal__meta-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0.6rem;
+  align-items: start;
+  opacity: 0.92;
+}
+
+.recommend-modal__meta-k {
+  opacity: 0.8;
+}
+
+.recommend-modal__meta-v {
+  word-break: break-word;
+}
+
+.recommend-modal__intro {
+  max-width: 100%;
+  padding: 0.75rem 0.85rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, #4aa3ff 26%, CanvasText 10%);
+  background: color-mix(in srgb, #4aa3ff 8%, Canvas 92%);
+}
+
+.recommend-modal__section-title {
+  font-weight: 720;
+  letter-spacing: 0.2px;
+  margin-bottom: 0.45rem;
+}
+
+.recommend-modal__intro-text {
+  opacity: 0.92;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+  max-height: 30vh;
+  overflow: auto;
+}
+
+.recommend-modal__disclaimer {
+  margin-top: 0.45rem;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+

@@ -1,0 +1,212 @@
+/* 场景按钮（图标+文本）：与目标按钮统一但更紧凑 */
+
+.scene-button-grid {
+  display: grid;
+  /* 默认：最多 4 列；不足时自动收缩并保持居中 */
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: clamp(0.75rem, 2vw, 1rem);
+  align-items: stretch;
+  max-width: 1100px;
+  margin-inline: auto;
+  justify-content: center;
+}
+
+.scene-button-grid--multi {
+  gap: clamp(0.9rem, 2.4vw, 1.25rem);
+}
+
+.scene-button-grid--three {
+  grid-template-columns: repeat(3, minmax(170px, 1fr));
+  max-width: 980px;
+}
+
+.scene-button-grid--three-strict {
+  grid-template-columns: repeat(3, minmax(170px, 1fr));
+  max-width: 980px;
+}
+
+.scene-button-grid--one {
+  grid-template-columns: minmax(170px, 1fr);
+  max-width: 380px;
+}
+
+.scene-button-grid--two {
+  grid-template-columns: repeat(2, minmax(170px, 1fr));
+  max-width: 980px;
+}
+
+.scene-button-grid--transitioning .ui-scene-button {
+  opacity: 0;
+  transform: translateY(6px) scale(0.985);
+  filter: saturate(0.95);
+  transition:
+    opacity 260ms ease,
+    transform 320ms ease,
+    filter 260ms ease,
+    background 320ms ease,
+    border-color 320ms ease,
+    box-shadow 320ms ease;
+}
+
+/* 返回时不需要 hover 影响位移 */
+.scene-button-grid--transitioning .ui-scene-button:hover {
+  transform: translateY(6px) scale(0.985);
+}
+
+@media (max-width: 900px) {
+  .scene-button-grid {
+    /* 一行两个，共两行（2 列） */
+    grid-template-columns: repeat(2, minmax(170px, 1fr));
+    gap: clamp(0.8rem, 2.2vw, 1.1rem);
+  }
+
+  .scene-button-grid--three {
+    /* 3 个按钮：在中等屏仍保持一行三个，避免 2+1 */
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+  }
+
+  .scene-button-grid--three-strict {
+    /* 3 个按钮：在中等屏仍保持一行三个，避免 2+1 */
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
+  }
+
+  .scene-button-grid--two {
+    grid-template-columns: repeat(2, minmax(170px, 1fr));
+  }
+
+  .scene-button-grid--one {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 620px) {
+  .scene-button-grid--three {
+    /* 3 个按钮：只允许 3 列或 1 列，避免 2+1 */
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+
+  .scene-button-grid--three-strict {
+    /* 3 个按钮：只允许 3 列或 1 列，避免 2+1 */
+    grid-template-columns: 1fr;
+    max-width: 440px;
+  }
+}
+
+@media (max-width: 420px) {
+  .scene-button-grid {
+    /* 一行一个，共四行（1 列） */
+    grid-template-columns: 1fr;
+  }
+}
+
+.ui-scene-button {
+  --accent: #9ad0ff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: clamp(0.85rem, 2vw, 1.05rem);
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, CanvasText 12%);
+  background: color-mix(in srgb, var(--accent) 18%, Canvas 82%);
+  color: CanvasText;
+  cursor: pointer;
+  text-align: left;
+  box-shadow:
+    0 10px 24px color-mix(in srgb, var(--accent) 9%, transparent),
+    0 2px 6px color-mix(in srgb, CanvasText 10%, transparent);
+  transition:
+    transform 120ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease,
+    border-color 160ms ease;
+}
+
+.ui-scene-button__check {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: transparent;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, CanvasText 10%);
+  opacity: 1;
+  transform: scale(1);
+  transition: color 160ms ease, transform 160ms ease, background 160ms ease;
+}
+
+.ui-scene-button:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, var(--accent) 24%, Canvas 76%);
+  border-color: color-mix(in srgb, var(--accent) 52%, CanvasText 10%);
+  box-shadow:
+    0 14px 30px color-mix(in srgb, var(--accent) 16%, transparent),
+    0 6px 14px color-mix(in srgb, CanvasText 12%, transparent);
+}
+
+.ui-scene-button--selected {
+  background: color-mix(in srgb, var(--accent) 28%, Canvas 72%);
+  border-color: color-mix(in srgb, var(--accent) 62%, CanvasText 10%);
+  box-shadow:
+    0 16px 34px color-mix(in srgb, var(--accent) 16%, transparent),
+    0 6px 14px color-mix(in srgb, CanvasText 12%, transparent);
+}
+
+.ui-scene-button--selected .ui-scene-button__check {
+  color: color-mix(in srgb, var(--accent) 72%, CanvasText 28%);
+  background: color-mix(in srgb, var(--accent) 22%, Canvas 78%);
+}
+
+.ui-scene-button:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.ui-scene-button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 3px;
+}
+
+.ui-scene-button__icon {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--accent) 28%, Canvas 72%);
+  color: color-mix(in srgb, var(--accent) 70%, CanvasText 30%);
+}
+
+.ui-scene-button__icon:empty {
+  display: none;
+}
+
+.ui-scene-button__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.ui-scene-button__label {
+  font-weight: 650;
+  letter-spacing: 0.2px;
+  line-height: 1.25;
+  font-size: 1rem;
+}
+
+@media (max-width: 420px) {
+  .ui-scene-button {
+    padding: 1rem;
+    min-height: 64px;
+    border-radius: 12px;
+  }
+  .ui-scene-button__icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+}
+

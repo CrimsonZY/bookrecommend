@@ -1,0 +1,366 @@
+/* Scene 页：提示词预览与复制 */
+
+.prompt-preview {
+  max-width: 1100px;
+  margin-inline: auto;
+  margin-top: clamp(0.9rem, 2vw, 1.25rem);
+  padding: clamp(0.9rem, 2.2vw, 1.1rem);
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.prompt-preview__title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.05rem;
+  font-weight: 720;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+
+.prompt-preview__title--step {
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 720;
+  letter-spacing: 0.2px;
+}
+
+.prompt-preview--v2-controls {
+  position: relative;
+}
+
+.v2-info {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, CanvasText 14%, transparent);
+  background: color-mix(in srgb, Canvas 94%, CanvasText 6%);
+  color: CanvasText;
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px color-mix(in srgb, CanvasText 10%, transparent);
+  transition: transform 120ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.prompt-preview--v2-controls .v2-info {
+  position: absolute;
+  top: clamp(0.75rem, 1.8vw, 0.95rem);
+  right: clamp(0.75rem, 1.8vw, 0.95rem);
+}
+
+.v2-info:hover {
+  background: color-mix(in srgb, Canvas 90%, CanvasText 10%);
+  box-shadow: 0 8px 18px color-mix(in srgb, CanvasText 14%, transparent);
+}
+
+.v2-info:active {
+  transform: scale(0.98);
+}
+
+.v2-warning {
+  margin: 0.55rem 0 0.7rem 0;
+  padding: 0.65rem 0.8rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, #f2c94c 50%, CanvasText 10%);
+  background: color-mix(in srgb, #f2c94c 14%, Canvas 86%);
+  box-shadow: 0 6px 16px color-mix(in srgb, CanvasText 10%, transparent);
+  color: CanvasText;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.v2-hint {
+  margin-top: 0.35rem;
+  text-align: center;
+  opacity: 0.86;
+  font-size: 0.92rem;
+}
+
+.v2-scale {
+  margin-top: 0.35rem;
+  text-align: center;
+  font-weight: 650;
+  letter-spacing: 0.1px;
+}
+
+.v2-control {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.v2-control--secondary .v2-scale {
+  opacity: 0.92;
+}
+
+.prompt-preview__empty {
+  margin: 0;
+  text-align: center;
+  opacity: 0.85;
+}
+
+.prompt-preview__textarea {
+  width: 100%;
+  resize: none;
+  overflow: auto;
+  min-height: 96px;
+  max-height: 40vh;
+  padding: 0.85rem 0.9rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, CanvasText 14%, transparent);
+  background: color-mix(in srgb, Canvas 96%, CanvasText 4%);
+  color: CanvasText;
+  font: inherit;
+  line-height: 1.5;
+}
+
+.prompt-preview__textarea:focus-visible {
+  outline: 3px solid color-mix(in srgb, CanvasText 16%, transparent);
+  outline-offset: 3px;
+}
+
+.prompt-preview__hint {
+  margin: 0.7rem 0 0 0;
+  text-align: center;
+  opacity: 0.8;
+  font-size: 0.95rem;
+}
+
+.prompt-preview__actions {
+  margin-top: 0.85rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.prompt-preview__tools--between {
+  margin-bottom: clamp(1.1rem, 2.6vw, 1.6rem);
+}
+
+.selected-hints {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0.2rem 0 0.35rem 0;
+}
+
+.selected-chip {
+  position: relative;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  max-width: min(320px, 86vw);
+  padding: 0 1.6rem 0 0.95rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, CanvasText 10%);
+  background: color-mix(in srgb, var(--accent) 16%, Canvas 84%);
+  box-shadow: 0 2px 6px color-mix(in srgb, CanvasText 8%, transparent);
+}
+
+.selected-chip__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 0.92rem;
+  letter-spacing: 0;
+}
+
+.selected-chip__close {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, CanvasText 10%);
+  background: color-mix(in srgb, Canvas 94%, CanvasText 6%);
+  color: CanvasText;
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 10px color-mix(in srgb, CanvasText 12%, transparent);
+  transition: transform 120ms ease, background 160ms ease;
+}
+
+.selected-chip__close:hover {
+  background: color-mix(in srgb, Canvas 90%, CanvasText 10%);
+}
+
+.selected-chip__close:active {
+  transform: scale(0.96);
+}
+
+.inline-custom {
+  --accent: #9ad0ff;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 46%, CanvasText 10%);
+  background: color-mix(in srgb, var(--accent) 14%, Canvas 86%);
+  box-shadow: 0 2px 6px color-mix(in srgb, CanvasText 8%, transparent);
+  padding: 0 0.55rem 0 0.95rem;
+  width: 180px;
+  max-width: min(520px, 92vw);
+  overflow: hidden;
+  cursor: text;
+  transition: width 260ms cubic-bezier(0.22, 1, 0.36, 1), background 160ms ease, border-color 160ms ease;
+}
+
+.inline-custom--open {
+  width: min(520px, 92vw);
+}
+
+.inline-custom__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: CanvasText;
+  font: inherit;
+  outline: none;
+}
+
+.inline-custom__confirm {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, CanvasText 10%);
+  background: transparent;
+  color: transparent;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 120ms ease, background 160ms ease, color 160ms ease;
+}
+
+.inline-custom--confirmed .inline-custom__confirm {
+  background: color-mix(in srgb, var(--accent) 22%, Canvas 78%);
+  color: color-mix(in srgb, var(--accent) 72%, CanvasText 28%);
+}
+
+.inline-custom__confirm:active {
+  transform: scale(0.96);
+}
+
+/* v2 controls (style-more page) */
+.v2-sliders {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+@media (max-width: 700px) {
+  .v2-sliders {
+    grid-template-columns: 1fr;
+  }
+}
+
+.v2-slider {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+}
+
+.v2-slider__label {
+  font-weight: 650;
+  letter-spacing: 0.2px;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.v2-slider input[type="range"] {
+  width: 100%;
+}
+
+.v2-ticks {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: baseline;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  user-select: none;
+}
+
+.v2-tick {
+  flex: 1 1 0;
+  min-width: 0;
+  line-height: 1.2;
+  font-size: 0.9rem;
+}
+
+.v2-tick:nth-child(1) {
+  text-align: left;
+}
+
+.v2-tick:nth-child(2) {
+  text-align: center;
+}
+
+.v2-tick:nth-child(3) {
+  text-align: right;
+}
+
+.v2-length {
+  margin-top: 0.95rem;
+  margin-bottom: 1.15rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.v2-length__label {
+  font-weight: 650;
+  letter-spacing: 0.2px;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.v2-length__btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.v2-length__btn {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem;
+  background: color-mix(in srgb, CanvasText 6%, Canvas 94%);
+  color: CanvasText;
+  cursor: pointer;
+  transition: transform 120ms ease, background 160ms ease, border-color 160ms ease;
+}
+
+.v2-length__btn:hover {
+  background: color-mix(in srgb, CanvasText 8%, Canvas 92%);
+}
+
+.v2-length__btn:active {
+  transform: scale(0.985);
+}
+
+.v2-length__btn--selected {
+  border-color: color-mix(in srgb, #4aa3ff 40%, CanvasText 10%);
+  background: color-mix(in srgb, #4aa3ff 18%, Canvas 82%);
+}
+
+@media (max-width: 420px) {
+  .prompt-preview {
+    border-radius: 14px;
+  }
+  .prompt-preview__title {
+    font-size: 1rem;
+  }
+}
+

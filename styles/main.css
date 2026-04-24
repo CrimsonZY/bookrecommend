@@ -1,0 +1,233 @@
+/* 全局样式入口 —— 可按需拆分至 tokens.css、layout.css 等 */
+
+@import "./components/book-card.css";
+@import "./components/button-component.css";
+@import "./components/scene-button-component.css";
+@import "./components/scene-selected-goal.css";
+@import "./components/nav-bar.css";
+@import "./components/prompt-preview.css";
+@import "./components/confirm-send-button.css";
+@import "./components/recommend-results.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: light dark;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f4f5f7 0%, #ffffff 55%, #ffffff 100%);
+}
+
+body.page-style-more {
+  background: linear-gradient(180deg, #e7e9ee 0%, #f1f2f5 60%, #f4f5f7 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(180deg, #0f1115 0%, #12151b 55%, #12151b 100%);
+  }
+
+  body.page-style-more {
+    background: linear-gradient(180deg, #0d0f14 0%, #10131a 60%, #12151b 100%);
+  }
+}
+
+.app-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+}
+
+.app-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.app-nav a {
+  color: inherit;
+}
+
+.app-main {
+  padding: 1.5rem;
+}
+
+.flow-step__title {
+  margin: 0;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 720;
+  letter-spacing: 0.2px;
+}
+
+.flow-step--goal .flow-step__title {
+  margin-bottom: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.flow-step--scene .flow-step__title {
+  margin-bottom: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.flow-step--scene .goal-button-grid + .flow-step__title {
+  margin-top: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter.fade-enter--active {
+  opacity: 1;
+  transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit.fade-exit--active {
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+@media (max-width: 560px) {
+  .app-header {
+    padding: 0.9rem 1rem;
+  }
+  .app-main {
+    padding: 1rem;
+  }
+}
+
+.flow-back {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  background: color-mix(in srgb, CanvasText 6%, Canvas 94%);
+  color: CanvasText;
+  box-shadow:
+    0 10px 24px color-mix(in srgb, CanvasText 6%, transparent),
+    0 2px 8px color-mix(in srgb, CanvasText 10%, transparent);
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.flow-back:hover {
+  background: color-mix(in srgb, CanvasText 8%, Canvas 92%);
+  border-color: color-mix(in srgb, CanvasText 18%, transparent);
+  transform: translateY(-1px);
+  box-shadow:
+    0 14px 30px color-mix(in srgb, CanvasText 8%, transparent),
+    0 6px 14px color-mix(in srgb, CanvasText 12%, transparent);
+}
+
+.flow-back:active {
+  transform: translateY(0) scale(0.985);
+  filter: saturate(1.03);
+}
+
+.flow-refresh {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  line-height: 1;
+  font-size: 1.15rem;
+}
+
+.flow-refresh:active {
+  transform: scale(0.96);
+}
+
+.flow-back--bottom {
+  margin-top: 0.75rem;
+  display: block;
+  margin-inline: auto;
+}
+
+.ui-modal__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: color-mix(in srgb, CanvasText 18%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.ui-modal {
+  width: min(520px, 94vw);
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, CanvasText 12%, transparent);
+  background: color-mix(in srgb, Canvas 94%, CanvasText 6%);
+  box-shadow: 0 18px 40px color-mix(in srgb, CanvasText 20%, transparent);
+  padding: 1rem 1rem 0.9rem 1rem;
+}
+
+.ui-modal__title {
+  font-size: 1.05rem;
+  font-weight: 760;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+.ui-modal__desc {
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, CanvasText 10%);
+  background: color-mix(in srgb, var(--accent) 10%, Canvas 90%);
+  text-align: left;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.ui-modal__actions {
+  margin-top: 0.9rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.ui-modal__ok {
+  border-color: color-mix(in srgb, var(--accent) 46%, CanvasText 10%);
+  background: color-mix(in srgb, var(--accent) 16%, Canvas 84%);
+}
+
+.scene-placeholder {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px dashed color-mix(in srgb, CanvasText 16%, transparent);
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-enter,
+  .fade-exit {
+    transition: none !important;
+  }
+}

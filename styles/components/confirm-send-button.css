@@ -1,0 +1,61 @@
+/* Scene 页：发送/确认并发送按钮 */
+
+.prompt-send {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, #4aa3ff 35%, CanvasText 10%);
+  background: color-mix(in srgb, #4aa3ff 22%, Canvas 78%);
+  color: CanvasText;
+  border-radius: 999px;
+  /* 与“返回上一步”按钮的水平间距对齐 */
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  box-shadow:
+    0 10px 24px color-mix(in srgb, #4aa3ff 10%, transparent),
+    0 2px 8px color-mix(in srgb, CanvasText 10%, transparent);
+  transition:
+    transform 120ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+}
+
+.prompt-send:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, #4aa3ff 28%, Canvas 72%);
+  border-color: color-mix(in srgb, #4aa3ff 52%, CanvasText 10%);
+  box-shadow:
+    0 14px 30px color-mix(in srgb, #4aa3ff 16%, transparent),
+    0 6px 14px color-mix(in srgb, CanvasText 12%, transparent);
+}
+
+.prompt-send:active {
+  transform: translateY(0) scale(0.985);
+  filter: saturate(1.05);
+  background: color-mix(in srgb, #4aa3ff 34%, Canvas 66%);
+}
+
+.prompt-send[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.prompt-send.is-submitting {
+  transform: scale(0.985);
+  background: color-mix(in srgb, #4aa3ff 36%, Canvas 64%);
+  border-color: color-mix(in srgb, #4aa3ff 58%, CanvasText 10%);
+}
+
+.prompt-send.is-success {
+  background: color-mix(in srgb, #55d18a 26%, Canvas 74%);
+  border-color: color-mix(in srgb, #55d18a 52%, CanvasText 10%);
+}
+
+.prompt-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+

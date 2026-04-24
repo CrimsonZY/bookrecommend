@@ -1,0 +1,60 @@
+{
+  "system_version": "recommendation_system_v1.0_stable",
+  "frozen_assets": {
+    "embedding_version": "book_embeddings_v2",
+    "embedding_path": "data/book_embeddings_v2.npy",
+    "index_path": "data/books_vector_index_v2.json",
+    "books_version": "book_enriched_v2",
+    "books_path": "data/books_enriched_v2.json",
+    "label_policy_version": "label_policy_v1",
+    "label_policy_path": "docs/labeling-policy.md",
+    "components": {
+      "retrieval": "RetrievalEngineV2",
+      "reranker": "RerankerV1",
+      "diversity": "DiversitySelectorV1"
+    }
+  },
+  "pipeline": {
+    "debug_mode": true,
+    "debug": {
+      "emit_stdout_ndjson": true,
+      "truncate_content_intro_chars": 120,
+      "max_items": {
+        "retrieval_top20": 20,
+        "rerank_top10": 10,
+        "diversity_top3": 3
+      }
+    },
+    "refresh": {
+      "min_final_score": 0.18
+    }
+  },
+  "retrieval": {
+    "weights": {
+      "query_score": 0.4,
+      "mood_score": 0.2,
+      "scene_score": 0.2,
+      "style_score": 0.2
+    }
+  },
+  "rerank": {
+    "weights": {
+      "semantic": 0.5,
+      "tag": 0.3,
+      "scene": 0.2
+    }
+  },
+  "diversity": {
+    "lambda_by_intent": {
+      "weak": 0.6,
+      "medium": 0.68,
+      "strong": 0.74
+    },
+    "threshold_by_intent": {
+      "weak": 0.76,
+      "medium": 0.82,
+      "strong": 0.86
+    },
+    "fallback_top_n": 7
+  }
+}

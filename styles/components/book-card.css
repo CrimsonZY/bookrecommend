@@ -1,0 +1,27 @@
+/* 与 components/book-card.js 配套的局部样式（在 main.css 中 @import 或页面按需引入） */
+
+.book-card {
+  border: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
+  border-radius: 8px;
+  padding: 1rem;
+  max-width: 280px;
+}
+
+.book-card__cover {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.book-card__title {
+  font-size: 1.125rem;
+  margin: 0 0 0.25rem;
+}
+
+.book-card__author {
+  margin: 0;
+  opacity: 0.85;
+  font-size: 0.875rem;
+}
